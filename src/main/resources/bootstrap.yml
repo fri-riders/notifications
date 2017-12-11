@@ -1,0 +1,30 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: notifications
+  cloud:
+    consul:
+      enabled: true
+      host: ${CONFIG_SERVER_URL:localhost}
+      discovery:
+        hostname: ${DISCOVERY_HOSTNAME:localhost}
+  profiles:
+    active: ${SPR_PROFILE:dev}
+app:
+  name: Notifications server
+  healthy: true
+
+management:
+  security:
+    enabled: false
+  health:
+    solr:
+      enabled: false
+    consul:
+      enabled: false
+
+endpoints:
+  health:
+    sensitive: false
