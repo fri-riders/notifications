@@ -14,13 +14,12 @@ cache:
   - $HOME/.m2
 
 env:
-  - DOCKER_IMAGE=janerz6/notifications:0.1
+  - IMAGE_NAME=janerz6/notifications:0.1
 
 script:
 - mvn clean package -U
 
 after_success:
 - docker login -u="janerz6" -p=$DOCKER_PASSWORD
-- export REPO=$DOCKER_IMAGE
-- docker build -t $REPO .
-- docker push $REPO
+- docker build -t $IMAGE_NAME .
+- docker push $IMAGE_NAME
