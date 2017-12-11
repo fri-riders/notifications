@@ -1,0 +1,23 @@
+sudo: required
+
+services:
+  - docker
+
+language: java
+dist: trusty
+
+jdk:
+- openjdk8
+
+cache:
+  directories:
+  - $HOME/.m2
+
+install:
+- mvn clean package -U
+
+after_success:
+- docker login -u="janerz6" -p=$DOCKER_PASSWORD
+- export REPO=janerz6/notifications
+- docker build -t $REPO .
+- docker push $REPO

@@ -1,0 +1,48 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: notifications-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: notifications
+    spec:
+      containers:
+      - image: janerz6/notifications
+        name: notifications
+        env:
+          - name: CONFIG_SERVER_URL
+            value: consul
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: server
+          initialDelaySeconds: 20
+          periodSeconds: 3
+        ports:
+        - containerPort: 8083
+          name: server
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 500m
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: notifications
+  labels:
+    app: notifications
+spec:
+  type: NodePort
+  ports:
+  - name: server
+    port: 8083
+    protocol: TCP
+    targetPort: 8083
+  selector:
+    app: notifications
