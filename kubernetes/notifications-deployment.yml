@@ -10,7 +10,7 @@ spec:
         app: notifications
     spec:
       containers:
-      - image: janerz6/notifications
+      - image: janerz6/notifications:0.2
         name: notifications
         env:
           - name: CONFIG_SERVER_URL
@@ -27,7 +27,7 @@ spec:
           protocol: TCP
         resources:
           requests:
-            cpu: 500m
+            cpu: 200m
 
 ---
 
