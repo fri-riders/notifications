@@ -24,6 +24,8 @@ management:
       enabled: false
     consul:
       enabled: false
+    mail:
+      enabled: false
 
 endpoints:
   health:
