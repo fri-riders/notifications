@@ -7,9 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 @RequestMapping(value = "v1/notifications")
 public class NotificationsController {
@@ -29,5 +26,10 @@ public class NotificationsController {
             return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Error sending e-mail. \n" + e.toString());
         }
         return ResponseEntity.ok(String.format("Notified %s: '%s'.", recipient, message));
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("Test");
     }
 }
