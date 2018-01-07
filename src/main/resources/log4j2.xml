@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{%5p} ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
+        </Property>
+        <Property name="LOGIT_HOST">589d1c23-5c27-4bb3-b458-d42249199af3-ls.logit.io</Property>
+        <Property name="LOGIT_HOST_PORT">14610</Property>
+        <!-- j.erzen1@gmail.com -->
+        <!--<Property name="LOGIT_HOST">f3807d01-3b15-48f4-9606-6770cbb55691-ls.logit.io</Property>-->
+        <!--<Property name="LOGIT_HOST_PORT">14745</Property>-->
+    </Properties>
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        <Socket name="socket" host="${LOGIT_HOST}" port="${LOGIT_HOST_PORT}">
+            <JSONLayout complete="false" compact="true" eventEol="true" charset="UTF-8" properties="true"/>
+        </Socket>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.fri.rso.fririders.notifications.log" level="debug" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Logger>
+        <Logger name="com.fri.rso.fririders.notifications.log" level="debug" additivity="false">
+            <AppenderRef ref="socket"/>
+        </Logger>
+        <Root level="info">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="socket"/>
+        </Root>
+    </Loggers>
+</Configuration>
